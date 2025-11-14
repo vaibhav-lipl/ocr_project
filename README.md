@@ -1,236 +1,119 @@
-🚀 OCR Project – Laravel 12 (Bootstrap + Sanctum + Roles & Permissions)
+# OCR Project – Laravel 12 Application
 
-This project is a Laravel-based web application that includes:
+This is a Laravel 12 project built with a modular structure that includes authentication, user management, responsive admin layout, and Sanctum-based API authentication.
 
-User authentication system
+## Installation
 
-Role & Permission management
+Clone the repository:
 
-Manage Users module (CRUD, DataTable, Export Excel/PDF)
+```bash
+git clone https://github.com/vaibhav-lipl/ocr_project.git
+cd ocr-project
+```
 
-Responsive admin layout with sidebar
+Install dependencies:
 
-SweetAlert notifications
-
-Sanctum API authentication
-
-Dashboard with analytics cards
-
-This document explains how to fully set up the project after cloning from Git.
-
-🛠 1. System Requirements
-
-Before starting, ensure your system has:
-
-PHP 8.2+ (Recommended: PHP 8.3 / 8.4)
-
-Composer v2+
-
-MySQL or MariaDB
-
-Apache/Nginx
-
-Node.js (Not required for this project)
-
-Git
-
-📥 2. Clone the Repository
-git clone https://github.com/your-repo/ocr_project.git
-cd ocr_project
-
-⚙️ 3. Install PHP Dependencies
+```bash
 composer install
+```
 
+Copy the example environment file:
 
-This installs Laravel and all required packages:
-
-Sanctum
-
-Spatie Roles & Permissions
-
-DataTables
-
-Excel export (maatwebsite/excel)
-
-PDF export (dompdf)
-
-📄 4. Create Environment File
-
-Copy .env.example to .env:
-
+```bash
 cp .env.example .env
+```
 
-🗝 5. Generate Application Key
+Generate the application key:
+
+```bash
 php artisan key:generate
+```
 
-🗄 6. Configure Database
+## Configuration
 
-Open .env and update these values:
+Update `.env` with your database configuration:
 
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=ocr_project
+```
+DB_DATABASE=your_database
 DB_USERNAME=your_username
 DB_PASSWORD=your_password
+```
 
-🧱 7. Run Migrations
+Run the database migrations:
 
-This will generate all tables:
-
+```bash
 php artisan migrate
+```
 
-🌱 8. Run Seeder (Admin User + Roles)
+Run the seeders (creates roles and an admin user):
 
-If your project includes a seeder such as:
-
-RolesAndAdminSeeder
-
-Run:
-
+```bash
 php artisan db:seed --class=RolesAndAdminSeeder
+```
 
+## Authentication
 
-This will create:
+The application uses:
 
-Default Admin role
+- Laravel’s built-in web authentication (login/register)
+- Sanctum for API token authentication
 
-One admin user
+## Project Structure
 
-Default permissions
+Key features included:
 
-🔐 9. Sanctum Setup (API Authentication)
+- Responsive admin layout with collapsible sidebar
+- User module (CRUD) with DataTables
+- Export user list to Excel & PDF
+- SweetAlert toast notifications
+- Role & Permission management
+- API login / profile / logout via Sanctum
 
-Sanctum migration is already included.
-Ensure you have this in bootstrap/app.php:
+## Running the Application
 
-$middleware->appendToGroup('api', [
-    \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
-]);
+Start the development server:
 
-
-API routes are inside:
-
-routes/web.php (api prefix)
-
-
-Sample endpoints:
-
-Method	Endpoint	Description
-POST	/api/login	User Login (Sanctum Token)
-POST	/api/logout	Logout
-GET	/api/profile	Authenticated User Profile
-🎨 10. Frontend Setup
-
-This project uses Bootstrap 5 CDN, so no npm or build tools are required.
-
-Admin layout includes:
-
-Responsive sidebar
-
-Collapsible menu
-
-Mobile menu
-
-Bootstrap icons
-
-SweetAlert toast notifications
-
-📊 11. DataTables, Export Excel & PDF
-
-Included features:
-
-Server-side DataTables
-
-Export to Excel (maatwebsite/excel)
-
-Export to PDF (dompdf)
-
-Responsive table view
-
-Nothing extra to install — already included via Composer.
-
-🔧 12. Fix Public Path Issue (Optional)
-
-If app opens like:
-
-http://localhost/ocr_project/public
-
-
-Move:
-
-public/index.php → root
-public/.htaccess → root
-
-
-And update paths inside index.php accordingly.
-
-▶️ 13. Run the Application
-
-Start the local server:
-
+```bash
 php artisan serve
+```
 
+Visit in browser:
 
-Open in browser:
-
+```
 http://127.0.0.1:8000
+```
 
-👤 14. Default Admin Login (From Seeder)
+## Default Admin Credentials
+
+Created by the seeder:
+
+```
 Email: admin@example.com
 Password: admin123
+```
 
+## API Endpoints
 
-(Change in seeder if needed)
+Authentication endpoints are prefixed with `/api`.
 
-📚 15. Project Features Overview
-Authentication
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/api/login` | Generate Sanctum token |
+| POST | `/api/logout` | Revoke token |
+| GET | `/api/profile` | Get authenticated user |
 
-✔ Login / Logout
-✔ Registration
-✔ Password reset (optional)
+Use the token in headers:
 
-User Module
-
-✔ Listing with DataTable
-✔ Create, Edit, Delete
-✔ Status toggle (Active/Inactive)
-✔ Export to Excel & PDF
-✔ View user details
-
-Dashboard
-
-✔ Total Users card
-✔ Responsive layout
-
-API
-
-✔ Secure login with Sanctum
-✔ Token based authentication
-✔ Profile & Logout endpoints
-
-🧩 16. Troubleshooting
-1. Migration error
-
-→ Check DB credentials in .env
-
-2. 500 error
-
-→ Run:
-
-composer dump-autoload
-php artisan optimize:clear
-
-3. Token not working
-
-→ Ensure API requests include Authorization header:
-
+```
 Authorization: Bearer <token>
+```
 
-❤️ 17. Contribution
+## Testing
 
-Feel free to fork, submit PRs, or report issues.
+```bash
+php artisan test
+```
 
-📜 License
+## License
 
-This project is open-source and available under the MIT license.
+This project is open-sourced under the MIT License.
